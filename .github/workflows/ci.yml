@@ -31,5 +31,10 @@ jobs:
       - name: Build Docker image for ${{ matrix.service }}
         run: |
           cd ${{ matrix.service }}
-          docker build -t vipuldhand/${{ matrix.service }}:latest .
+          docker build \
+           -t vipuldhand/${{ matrix.service }}:latest \
+           -t vipuldhand/${{ matrix.service }}:${{ github.sha }} \
+           .
+
           docker push vipuldhand/${{ matrix.service }}:latest
+          docker push vipuldhand/${{ matrix.service }}:${{ github.sha }}
