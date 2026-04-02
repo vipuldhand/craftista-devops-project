@@ -74,7 +74,7 @@ func getRecommendationStatus(c *gin.Context) {
 	// - External API/service availability
 	// - Disk space, memory usage, etc.
 
-	status := "operational"  // or "down", "maintenance", etc.
+	status := "up"  // or "down", "maintenance", etc.
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": status,
@@ -119,7 +119,7 @@ func main() {
 
 
 	// Start the server on port 8080
-	router.Run(":8080")
+	router.Run("0.0.0.0:8080")
 
 }
 

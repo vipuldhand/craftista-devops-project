@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - catalogue
+      - recommendation
+      - voting
+    environment:
+      - CATALOGUE_URL=http://catalogue:5000
+      - RECOMMENDATION_URL=http://recommendation:8080
+      - VOTING_URL=http://voting:8080
+
+  catalogue:
+    build: ./catalogue
+    ports:
+      - "5000:5000"
+
+  recommendation:
+    build: ./recommendation
+    ports:
+      - "5001:8080"
+
+  voting:
+    build: ./voting
+    ports:
+      - "5002:8080"
