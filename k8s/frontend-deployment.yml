@@ -23,11 +23,19 @@ spec:
         image: vipuldhand/frontend:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 3000
-      resources:
-        limits:
-          memory: "256Mi"
-          cpu: "200m"
-        requests:
-          memory: "128Mi"
-          cpu: "100m"
+          - containerPort: 3000
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+        volumeMounts:
+          - name: frontend-config-volume
+            mountPath: /app/config.json
+            subPath: config.json
+      volumes:
+      - name: frontend-config-volume
+        configMap:
+          name: frontend-config
