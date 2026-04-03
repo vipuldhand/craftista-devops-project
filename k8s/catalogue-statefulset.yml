@@ -1,22 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
-
+kind: StatefulSet
 metadata:
   name: catalogue
-  labels:
-    app: catalogue
-
 spec:
-  replicas: 1
+  serviceName: "catalogue-service"
+  replicas: 2
   selector:
     matchLabels:
       app: catalogue
-
   template:
     metadata:
       labels:
         app: catalogue
-
     spec:
       containers:
       - name: catalogue
@@ -25,16 +20,19 @@ spec:
         ports:
         - containerPort: 5000
         volumeMounts:
-          - name: catalogue-storage
-            mountPath: /app/data
+        - name: catalogue-storage
+          mountPath: /app/data
       resources:
         limits:
           memory: "256Mi"
           cpu: "200m"
         requests:
           memory: "128Mi"
-          cpu: "100m"
-      volumes:
-        - name: catalogue-storage
-          persistentVolumeClaim:
-            claimName: catalogue-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: catalogue-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

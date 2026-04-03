@@ -6,7 +6,7 @@ metadata:
   namespace: default
 
 spec:
-  type: NodePort
+  clusterIP: None
   ports:
     - port: 5000
       targetPort: 5000
