@@ -1,16 +1,16 @@
-# Craftista DevOps Project 🚀
+# Craftista DevOps Project 
 
 A polyglot microservices application containerized using Docker and automated with CI/CD pipelines.
 
 ---
 
-## 🧠 Project Overview
+##  Project Overview
 
 This project demonstrates real-world DevOps practices by containerizing and orchestrating a multi-service application built using different technologies.
 
 ---
 
-## 🧩 Architecture
+##  Architecture
 
 The application consists of:
 
@@ -21,7 +21,7 @@ The application consists of:
 
 ---
 
-## 🐳 Docker Implementation
+##  Docker Implementation
 
 - Created Dockerfiles for all services
 - Used multi-stage builds for optimized images
@@ -30,7 +30,7 @@ The application consists of:
 
 ---
 
-## ⚙️ How to Run
+##  How to Run
 
 bash:
 docker-compose up --build
@@ -58,10 +58,25 @@ Docker & Docker Compose
 GitHub Actions (CI/CD)
 Node.js, Python, Go, Java
 
-## Future Improvements
-Kubernetes deployment
-Helm charts
-Monitoring with Prometheus & Grafana
+##  Kubernetes Deployment (Work in Progress)
+
+This project is now deployed on Kubernetes using Minikube.
+
+###  Implemented:
+- Dockerized microservices
+- Kubernetes Deployments & Services
+- Service-to-service communication via DNS
+- ConfigMap for externalized frontend configuration
+
+###  Tech Stack:
+- Docker
+- Kubernetes (Minikube)
+- GitHub Actions (CI)
+
+###  Notes:
+- Frontend configuration is now injected using Kubernetes ConfigMap
+- No need to rebuild Docker images for config changes
+
 
 ## Author
 Vipul Dhand
