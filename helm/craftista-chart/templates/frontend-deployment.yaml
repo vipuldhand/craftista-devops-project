@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Release.Name }}-frontend
 spec:
   replicas: {{ .Values.frontend.replicas }}
 
   selector:
     matchLabels:
-      app: frontend
+      app: {{ .Release.Name }}-frontend
 
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ .Release.Name }}-frontend
 
     spec:
       containers:
         - name: frontend
-          image: "{{ .Values.frontend.image }}"
+          image: {{ .Values.frontend.image }}
           imagePullPolicy: Always
 
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.frontend.port }}
 
           resources:
             limits:
@@ -30,3 +30,11 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "100m"
+          volumeMounts:
+            - name: frontend-config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+      volumes:
+        - name: frontend-config-volume
+          configMap:
+            name: {{ .Release.Name }}-frontend-config          

@@ -1,3 +1,21 @@
 frontend:
   replicas: 1
   image: vipuldhand/frontend:latest
+  port: 3000
+  config:
+    version: "1.0.0"
+    productsApiBaseUri: "http://craftista-catalogue-service:5000"
+    recommendationBaseUri: "http://craftista-recommendation-service:8080"
+    votingBaseUri: "http://craftista-voting-service:8080"
+catalogue:
+  replicas: 1
+  image: vipuldhand/catalogue:latest
+  port: 5000
+recommendation:
+  replicas: 1
+  image: vipuldhand/recommendation:latest
+  port: 8080
+voting:
+  replicas: 1
+  image: vipuldhand/voting:latest
+  port: 8080

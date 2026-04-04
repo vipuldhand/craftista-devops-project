@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-recommendation
+spec:
+  replicas: {{ .Values.recommendation.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-recommendation
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-recommendation
+
+    spec:
+      containers:
+        - name: recommendation
+          image: {{ .Values.recommendation.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.recommendation.port }}
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-voting-service
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Release.Name }}-voting
+  ports:
+    - port: {{ .Values.voting.port }}
+      targetPort: {{ .Values.voting.port }}

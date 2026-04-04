@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-voting
+spec:
+  replicas: {{ .Values.voting.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-voting
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-voting
+
+    spec:
+      containers:
+        - name: voting
+          image: {{ .Values.voting.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.voting.port }}
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"

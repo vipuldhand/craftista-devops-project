@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-catalogue
+spec:
+  replicas: {{ .Values.catalogue.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-catalogue
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-catalogue
+
+    spec:
+      containers:
+        - name: catalogue
+          image: {{ .Values.catalogue.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.catalogue.port }}
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
