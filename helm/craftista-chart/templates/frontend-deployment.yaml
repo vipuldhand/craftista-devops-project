@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ .Release.Name }}-frontend
 spec:
@@ -37,4 +37,14 @@ spec:
       volumes:
         - name: frontend-config-volume
           configMap:
-            name: {{ .Release.Name }}-frontend-config          
+            name: {{ .Release.Name }}-frontend-config
+strategy:
+        canary:
+          stableService: {{ .Release.Name }}-frontend-stable
+          canaryService: {{ .Release.Name }}-frontend-canary
+          steps:
+            - setWeight: 20
+            - pause: { duration: 20s }
+            - setWeight: 50
+            - pause: { duration: 20s }
+            - setWeight: 100                      
