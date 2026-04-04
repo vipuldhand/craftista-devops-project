@@ -1,7 +1,7 @@
 frontend:
   service:
     type: ClusterIP
-  replicas: 1
+  replicas: 3
   image: vipuldhand/frontend:latest
   port: 3000
   config:
