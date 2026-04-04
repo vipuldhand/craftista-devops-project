@@ -17,7 +17,14 @@ The application is composed of the following microservices:
 * **Recommendation Service** – Go (Gin)
 * **Voting Service** – Java (Spring Boot)
 
-Key architectural features:
+## Credits
+
+This project is based on the Craftista application originally created by School of DevOps.
+
+Original concept and application: School of DevOps
+This repository focuses on implementing DevOps practices such as containerization, Kubernetes orchestration, and Helm-based deployment on top of the original application.
+
+## Key architectural features:
 
 * Microservices communicate via internal Kubernetes DNS
 * Frontend configuration is externalized using ConfigMaps
