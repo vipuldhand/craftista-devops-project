@@ -123,7 +123,8 @@ craftista/
 
 ## Screenshot
 
-<img width="2537" height="1304" alt="Craftista Application" src="https://github.com/user-attachments/assets/10d3c932-5e11-4e0d-9e25-dcbd01751ea6" />
+<img width="2550" height="1306" alt="image" src="https://github.com/user-attachments/assets/1c357986-7915-4df3-bc0c-e0da70102fed" />
+
 
 ---
 
