@@ -134,8 +134,13 @@ craftista/
 
 <img width="2550" height="1306" alt="image" src="https://github.com/user-attachments/assets/1c357986-7915-4df3-bc0c-e0da70102fed" />
 
+
 **Implemented Canary-Stable approach using ArgoCD88 - 
+
+
 <img width="977" height="600" alt="image" src="https://github.com/user-attachments/assets/0c92b9cd-bd0b-492c-8b45-9c01bc37207e" />
+
+
 
 <img width="1032" height="522" alt="image" src="https://github.com/user-attachments/assets/360331ac-43e5-4b1d-b568-1024392e4ff4" />
 
