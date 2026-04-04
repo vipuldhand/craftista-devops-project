@@ -23,6 +23,8 @@ This project is based on the Craftista application originally created by School 
 
 Original concept and application: School of DevOps
 This repository focuses on implementing DevOps practices such as containerization, Kubernetes orchestration, and Helm-based deployment on top of the original application.
+https://schoolofdevops.com/
+https://github.com/craftista/craftista
 
 ## Key architectural features:
 
