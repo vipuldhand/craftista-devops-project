@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-frontend
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.frontend.port }}
+  strategy:
+    bluegreen:
+      activeService: {{ .Release.Name }}-frontend-active
+      previewService: {{ .Release.Name }}-frontend-preview
+      autoPromotionEnabled: false
+
+{{- end }}
