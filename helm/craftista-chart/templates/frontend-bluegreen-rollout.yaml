@@ -26,5 +26,3 @@ spec:
       activeService: {{ .Release.Name }}-frontend-active
       previewService: {{ .Release.Name }}-frontend-preview
       autoPromotionEnabled: false
-
-{{- end }}
