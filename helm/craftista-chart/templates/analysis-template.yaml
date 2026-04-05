@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate-check
+spec:
+  metrics:
+    - name: success-rate
+      interval: 30s
+      successCondition: result[0] > 0.90
+      failureLimit: 2
+      provider:
+        prometheus:
+          address: http://kube-prometheus-kube-prome-prometheus:9090
+          query: |
+            sum(rate(container_CPU_usage_seconds_total[1m]))
