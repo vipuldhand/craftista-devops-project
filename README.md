@@ -1,97 +1,144 @@
-# Craftista DevOps Project
+# Craftista DevOps Project 
 
-## Overview
+##  Overview
 
-Craftista is a polyglot microservices-based application designed to demonstrate end-to-end DevOps practices. The project showcases containerization, orchestration, and configuration management using Docker, Kubernetes, and Helm.
+Craftista is a **polyglot microservices-based application** designed to demonstrate **end-to-end DevOps practices in a production-like Kubernetes environment**.
 
-The system consists of multiple services built using different programming languages, communicating seamlessly within a Kubernetes cluster.
+This project showcases the complete lifecycle of a modern DevOps system — from containerization and orchestration to **deployment strategies, monitoring, and centralized logging**.
 
 ---
 
-## Architecture
+##  Architecture
 
-The application is composed of the following microservices:
+The system consists of multiple microservices built using different technologies:
 
 * **Frontend** – Node.js
 * **Catalogue Service** – Python (Flask)
 * **Recommendation Service** – Go (Gin)
 * **Voting Service** – Java (Spring Boot)
 
-## Credits
+### Key Architectural Highlights:
 
-This project is based on the Craftista application originally created by School of DevOps.
-
-Original concept and application: School of DevOps
-This repository focuses on implementing DevOps practices such as containerization, Kubernetes orchestration, and Helm-based deployment on top of the original application.
-https://schoolofdevops.com/
-https://github.com/craftista/craftista
-
-## Key architectural features:
-
-* Microservices communicate via internal Kubernetes DNS
-* Frontend configuration is externalized using ConfigMaps
-* Services are deployed and managed using Helm charts
+* Microservices communicate via **Kubernetes internal DNS**
+* Configuration is externalized using **ConfigMaps**
+* Services are deployed using **Helm charts**
+* Traffic routing handled via **NGINX Ingress**
+* Progressive delivery using **Argo Rollouts (Canary + Blue/Green)**
 
 ---
 
-## Technology Stack
+## 🛠️ Tech Stack
+
+### Core DevOps Tools
 
 * **Containerization**: Docker, Docker Compose
 * **Orchestration**: Kubernetes (Minikube)
 * **Package Management**: Helm
-* **CI/CD**: GitHub Actions
-* **Languages**: Node.js, Python, Go, Java
+
+### CI/CD & Deployment
+
+* **GitOps**: ArgoCD
+* **Deployment Strategies**: Canary & Blue-Green (Argo Rollouts)
+* **CI Pipeline**: GitHub Actions
+
+### Observability 
+
+* **Monitoring**: Prometheus + Grafana
+* **Logging**: Fluent Bit → Elasticsearch → Kibana (EFK Stack)
+
+### Languages
+
+* Node.js, Python, Go, Java
 
 ---
 
-## Features
+##  Features Implemented
+
+###  Infrastructure & Deployment
 
 * Fully containerized microservices architecture
-* Kubernetes-based deployment using Deployments and Services
-* Helm templating for reusable and environment-agnostic configurations
-* ConfigMap-based dynamic configuration (no image rebuild required)
-* Internal service discovery using Kubernetes DNS
+* Kubernetes-based deployments with Helm templating
+* Dynamic configuration using ConfigMaps
+* Internal service discovery via Kubernetes DNS
+
+###  Networking
+
+* NGINX Ingress Controller setup
+* Path-based routing for microservices
+* Custom domain (`craftista.local`) configuration
+
+###  Deployment Strategies
+
+* Blue-Green deployment using Argo Rollouts
+* Canary deployment with traffic splitting
+* GitOps-based deployment using ArgoCD
+
+###  Observability (Major Highlight)
+
+* Metrics collection using Prometheus
+* Grafana dashboards for real-time monitoring
+* Centralized logging using EFK stack:
+
+  * Fluent Bit collects logs from Kubernetes pods
+  * Elasticsearch stores logs
+  * Kibana used for real-time log analysis and debugging
 
 ---
 
-## Docker Implementation
+##  Logging & Debugging (Real DevOps Use Case)
 
-* Created Dockerfiles for each microservice
-* Used multi-stage builds to optimize image size
+* Implemented centralized logging pipeline using Fluent Bit
+* Successfully debugged Kubernetes issues using Kibana logs
+* Identified service endpoint mismatches via logs
+* Enabled real-time log querying using Kibana Discover
+
+ Example:
+
+* Detected missing service endpoints (`*-stable`) through ingress logs
+* Verified system health using `kubectl` and log correlation
+
+---
+
+##  Docker Implementation
+
+* Created optimized Dockerfiles for each service
+* Used multi-stage builds to reduce image size
 * Configured Docker Compose for local development
 * Enabled inter-service communication via Docker networking
 
 ---
 
-## Kubernetes and Helm
+##  Kubernetes & Helm
 
-* Defined Kubernetes manifests for all services
-* Implemented ClusterIP and NodePort services appropriately
+* Defined Deployments and Services for all microservices
+* Used ClusterIP and NodePort services appropriately
 * Packaged application using Helm charts
-* Parameterized deployments using `values.yaml`
-* Used ConfigMaps to inject runtime configuration into containers
+* Parameterized deployments via `values.yaml`
+* Used ConfigMaps for runtime configuration
 
 ---
 
-## CI/CD Pipeline
+##  CI/CD Pipeline
 
 * Automated build process using GitHub Actions
-* Continuous integration for code validation and image builds
-* Structured pipeline for future Docker Hub integration
+* Continuous integration for code validation
+* Structured pipeline for future Docker registry integration
 
 ---
 
-## Challenges and Learnings
+##  Challenges & Learnings
 
-* Resolved service communication issues caused by incorrect hostnames
-* Debugged Kubernetes service discovery and DNS resolution
-* Fixed Helm templating and resource naming conflicts
-* Implemented ConfigMap volume mounting and handled update propagation
-* Worked with multi-language microservices in a unified environment
+* Debugged Kubernetes service discovery issues
+* Fixed Helm templating and naming conflicts
+* Implemented ConfigMap-based dynamic configuration
+* Troubleshot Fluent Bit → Elasticsearch connectivity issues
+* Resolved logging errors related to deprecated `_type` field
+* Used Kibana to identify and analyze system-level logs
+* Understood interaction between Ingress, Services, and Endpoints
 
 ---
 
-## Running the Application
+##  Running the Application
 
 ### Prerequisites
 
@@ -113,7 +160,7 @@ minikube service craftista-frontend-service
 
 ---
 
-## Project Structure
+##  Project Structure
 
 ```
 craftista/
@@ -130,24 +177,31 @@ craftista/
 
 ---
 
-## Screenshot
+## 📸 Screenshots
 
-<img width="2550" height="1306" alt="image" src="https://github.com/user-attachments/assets/1c357986-7915-4df3-bc0c-e0da70102fed" />
+### ArgoCD Deployment (Canary + Blue-Green)
 
+<img width="977" height="600" src="https://github.com/user-attachments/assets/0c92b9cd-bd0b-492c-8b45-9c01bc37207e" />
 
-**Implemented Canary-Stable approach using ArgoCD** - 
+<img width="1032" height="522" src="https://github.com/user-attachments/assets/360331ac-43e5-4b1d-b568-1024392e4ff4" />
 
+### Application UI
 
-<img width="977" height="600" alt="image" src="https://github.com/user-attachments/assets/0c92b9cd-bd0b-492c-8b45-9c01bc37207e" />
-
-
-
-<img width="1032" height="522" alt="image" src="https://github.com/user-attachments/assets/360331ac-43e5-4b1d-b568-1024392e4ff4" />
-
-
+<img width="2550" height="1306" src="https://github.com/user-attachments/assets/1c357986-7915-4df3-bc0c-e0da70102fed" />
 
 ---
 
-## Author
+##  Credits
 
-Vipul Dhand
+This project is based on the Craftista application originally created by **School of DevOps**.
+
+This repository extends the original application by implementing advanced DevOps practices including Kubernetes orchestration, Helm packaging, CI/CD, and observability.
+
+* https://schoolofdevops.com/
+* https://github.com/craftista/craftista
+
+---
+
+##  Author
+
+**Vipul Dhand**
