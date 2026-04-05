@@ -1,0 +1,24 @@
+backend:
+  type: es
+
+config:
+  outputs: |
+    [OUTPUT]
+        Name            es
+        Match           *
+        Host            elasticsearch-master
+        Port            9200
+        HTTP_User       elastic
+        HTTP_Passwd     dvg6RurIGoLxiwm4
+        tls             On
+        tls.verify      Off
+        Suppress_Type_Name On
+        
+  filters: |
+    [FILTER]
+        Name                kubernetes
+        Match               *
+        Merge_Log           On
+        Keep_Log            Off
+        K8S-Logging.Parser  On
+        K8S-Logging.Exclude Off
