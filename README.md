@@ -76,7 +76,7 @@ The system consists of multiple microservices built using different technologies
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Core DevOps Tools
 
@@ -226,7 +226,7 @@ craftista/
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 ### ArgoCD Deployment (Canary + Blue-Green)
 
