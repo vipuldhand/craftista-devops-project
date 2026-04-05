@@ -1,0 +1,37 @@
+{{- if .Values.rollout.enabled }}
+
+apiVersion: v1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-recommendation
+spec:
+  replicas: {{ .Values.recommendation.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-recommendation
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-recommendation
+    spec:
+      containers:
+        - name: recommendation
+          image: {{ .Values.recommendation.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.recommendation.port }}
+  strategy:
+    canary:
+      stableService: {{ .Release.Name }}-recommendation-stable
+      canaryService: {{ .Release.Name }}-recommendation-canary
+      steps:
+        - setWeight: 20
+        - pause: { duration: 20s }
+        - setWeight: 50
+        - pause: { duration: 20s }
+        - setWeight: 100
+
+{{- end }}

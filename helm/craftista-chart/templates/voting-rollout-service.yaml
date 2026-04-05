@@ -1,0 +1,28 @@
+{{- if .Values.rollout.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-voting-stable
+spec:
+  selector:
+    app: {{ .Release.Name }}-voting
+  ports:
+    - protocol: TCP
+      port: {{ .Values.voting.port }}
+      targetPort: {{ .Values.voting.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-voting-canary
+spec:
+  selector:
+    app: {{ .Release.Name }}-voting
+  ports:
+    - protocol: TCP
+      port: {{ .Values.voting.port }}
+      targetPort: {{ .Values.voting.port }}
+
+{{- end }}

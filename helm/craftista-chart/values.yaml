@@ -24,3 +24,5 @@ voting:
 ingress:
   enabled: true
   host: craftista.local
+rollout:
+  enabled: true

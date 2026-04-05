@@ -1,0 +1,28 @@
+{{- if .Values.rollout.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-recommendation-stable
+spec:
+  selector:
+    app: {{ .Release.Name }}-recommendation
+  ports:
+    - protocol: TCP
+      port: {{ .Values.recommendation.port }}
+      targetPort: {{ .Values.recommendation.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-recommendation-canary
+spec:
+  selector:
+    app: {{ .Release.Name }}-recommendation
+  ports:
+    - protocol: TCP
+      port: {{ .Values.recommendation.port }}
+      targetPort: {{ .Values.recommendation.port }}
+
+{{- end }}

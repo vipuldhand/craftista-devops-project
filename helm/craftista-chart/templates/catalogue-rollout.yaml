@@ -1,0 +1,38 @@
+{{ if .Values.rollout.enabled }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-catalogue
+spec:
+  replicas: {{ .Values.catalogue.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-catalogue
+  
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-catalogue
+    spec:
+      containers:
+        - name: catalogue
+          image: {{ .Values.catalogue.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.catalogue.port }}
+
+  strategy:
+    canary:
+      stableService: {{ .Release.Name }}-catalogue-stable
+      canaryService: {{ .Release.Name }}-catalogue-canary
+      steps:
+        - setWeight: 20
+        - pause: { duration: 20s }
+        - setWeight: 50
+        - pause: { duration: 20s }
+        - setWeight: 100
+        
+{{- end }}

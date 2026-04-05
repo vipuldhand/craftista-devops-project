@@ -1,0 +1,28 @@
+{{- if .Values.rollout.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-catalogue-stable
+spec:
+  selector:
+    app: {{ .Release.Name }}-catalogue
+  ports:
+    - protocol: TCP
+      port: {{ .Values.catalogue.port }}
+      targetPort: {{ .Values.catalogue.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-catalogue-canary
+spec:
+  selector:
+    app: {{ .Release.Name }}-catalogue
+  ports:
+    - protocol: TCP
+      port: {{ .Values.catalogue.port }}
+      targetPort: {{ .Values.catalogue.port }}
+
+{{- end }}

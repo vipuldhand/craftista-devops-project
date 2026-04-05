@@ -1,0 +1,37 @@
+{{- if .Values.rollout.enabled }}
+
+apiVersion: v1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-voting
+spec:
+  replicas: {{ .Values.voting.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-voting
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-voting
+    spec:
+      containers:
+        - name: voting
+          image: {{ .Values.voting.image }}
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: {{ .Values.voting.port }}
+  strategy:
+    canary:
+      stableService: {{ .Release.Name }}-voting-stable
+      canaryService: {{ .Release.Name }}-voting-canary
+      steps:
+        - setWeight: 20
+        - pause: { duration: 20s }
+        - setWeight: 50
+        - pause: { duration: 20s }
+        - setWeight: 100
+
+{{- end }}
