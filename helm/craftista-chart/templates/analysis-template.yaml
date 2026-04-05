@@ -10,6 +10,6 @@ spec:
       failureLimit: 2
       provider:
         prometheus:
-          address: http://kube-prometheus-kube-prome-prometheus:9090
+          address: http://prometheus-operated:9090
           query: |
             sum(rate(container_CPU_usage_seconds_total[1m]))
