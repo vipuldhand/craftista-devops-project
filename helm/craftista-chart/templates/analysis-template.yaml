@@ -11,4 +11,5 @@ spec:
       provider:
         prometheus:
           address: http://kube-prometheus-kube-prome-prometheus:9090
-          query: vector(1)
+          query: |
+            sum(rate(container_cpu_usage_seconds_total{namespace="default"}[1m]))
