@@ -1,3 +1,4 @@
+{{- if .Values.rollout.blueGreenEnabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -26,3 +27,5 @@ spec:
       activeService: {{ .Release.Name }}-frontend-active
       previewService: {{ .Release.Name }}-frontend-preview
       autoPromotionEnabled: false
+
+{{- end }}
