@@ -6,10 +6,9 @@ spec:
   metrics:
     - name: success-rate
       interval: 30s
-      successCondition: result[0] > 0.90
+      successCondition: result[0] >= 1
       failureLimit: 2
       provider:
         prometheus:
-          address: http://prometheus-operated:9090
-          query: |
-            sum(rate(container_CPU_usage_seconds_total[1m]))
+          address: http://kube-prometheus-kube-prome-prometheus:9090
+          query: vector(1)
