@@ -1,6 +1,6 @@
 {{- if .Values.rollout.enabled }}
 
-apiVersion: v1
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: {{ .Release.Name }}-recommendation
