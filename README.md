@@ -17,6 +17,55 @@ The system consists of multiple microservices built using different technologies
 * **Recommendation Service** – Go (Gin)
 * **Voting Service** – Java (Spring Boot)
 
+### System Architecture
+
+```
+                        ┌──────────────────────────┐
+                        │        User / Browser    │
+                        └────────────┬─────────────┘
+                                     │
+                             ┌───────▼────────┐
+                             │  NGINX Ingress │
+                             │  (craftista.local)
+                             └───────┬────────┘
+                                     │
+        ┌────────────────────────────┼────────────────────────────┐
+        │                            │                            │
+┌───────▼────────┐        ┌──────────▼─────────┐        ┌────────▼────────┐
+│   Frontend     │        │   Catalogue Service │        │ Recommendation  │
+│   (Node.js)    │        │   (Flask/Python)    │        │ Service (Go)    │
+└───────┬────────┘        └──────────┬─────────┘        └────────┬────────┘
+        │                            │                            │
+        │                            │                            │
+        │                    ┌───────▼────────┐                   │
+        │                    │ Voting Service │                   │
+        │                    │ (Spring Boot)  │                   │
+        │                    └────────────────┘                   │
+        │                                                         │
+        └─────────────────────────────────────────────────────────┘
+
+
+====================== OBSERVABILITY LAYER ======================
+
+   Logs Flow:
+   Pods → Fluent Bit → Elasticsearch → Kibana
+
+   Metrics Flow:
+   Pods → Prometheus → Grafana
+
+=================================================================
+
+====================== DEPLOYMENT FLOW ===========================
+
+   GitHub → GitHub Actions → ArgoCD → Kubernetes Cluster
+
+   Deployment Strategies:
+   - Canary Releases
+   - Blue-Green Deployments
+
+=================================================================
+```
+
 ### Key Architectural Highlights:
 
 * Microservices communicate via **Kubernetes internal DNS**
@@ -189,6 +238,69 @@ craftista/
 
 <img width="2550" height="1306" src="https://github.com/user-attachments/assets/1c357986-7915-4df3-bc0c-e0da70102fed" />
 
+---
+## Deploy on AWS EKS (Production Setup)
+
+This project can be deployed to a managed Kubernetes environment using Amazon EKS.
+
+### Prerequisites
+
+* AWS CLI configured
+* eksctl installed
+* kubectl installed
+* Helm installed
+
+### Step 1: Create EKS Cluster
+
+```bash
+eksctl create cluster \
+  --name craftista-cluster \
+  --region ap-south-1 \
+  --nodegroup-name standard-workers \
+  --node-type t3.medium \
+  --nodes 2
+```
+
+### Step 2: Configure kubectl
+
+```bash
+aws eks update-kubeconfig --region ap-south-1 --name craftista-cluster
+```
+
+### Step 3: Install Ingress Controller
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```
+
+### Step 4: Deploy Application
+
+```bash
+helm install craftista ./helm/craftista-chart
+```
+
+### Step 5: Setup Observability Stack
+
+* Install Prometheus and Grafana using Helm
+* Deploy Elasticsearch and Kibana
+* Configure Fluent Bit for log forwarding
+
+### Step 6: Access Application
+
+* Use AWS LoadBalancer service or Ingress
+* Map domain via Route53 (optional)
+
+---
+
+### Production Improvements
+
+* Use AWS Load Balancer Controller
+* Store secrets in AWS Secrets Manager
+* Enable auto-scaling with HPA
+* Use managed Elasticsearch (OpenSearch)
+
+```
+```
 ---
 
 ##  Credits
