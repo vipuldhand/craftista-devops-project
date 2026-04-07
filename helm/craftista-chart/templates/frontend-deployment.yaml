@@ -1,5 +1,5 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: {{ .Release.Name }}-frontend
 spec:
@@ -38,27 +38,4 @@ spec:
         - name: frontend-config-volume
           configMap:
             name: {{ .Release.Name }}-frontend-config
-  strategy:
-          {{- $rollout := (.Values.frontend.rollout | default dict) }}
-          {{- if and ($rollout.enabled | default false) (eq ($rollout.mode | default "") "canary") }}
-          canary:
-            stableService: {{ .Release.Name }}-frontend-stable
-            canaryService: {{ .Release.Name }}-frontend-canary
-            steps:
-              - setWeight: 20
-              - pause: { duration: 5s }
-              - setWeight: 50
-              - pause: { duration: 5s }
-              - setWeight: 100
-            analysis:
-              templates:
-                - templateName: success-rate-check
-          {{- end }}
-
-          {{- $rollout := (.Values.frontend.rollout | default dict) }}
-          {{- if and ($rollout.enabled | default false) (eq ($rollout.mode | default "") "bluegreen") }}
-          bluegreen:
-            activeService: {{ .Release.Name }}-frontend-active
-            previewService: {{ .Release.Name }}-frontend-preview
-            autoPromotionEnabled: false
-          {{- end }}
+  
