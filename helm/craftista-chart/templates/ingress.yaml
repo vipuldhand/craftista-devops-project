@@ -33,7 +33,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}-catalogue-stable
+                name: {{ .Release.Name }}-catalogue-service
                 port:
                   number: {{ .Values.catalogue.port }}
 
@@ -42,7 +42,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}-recommendation-stable
+                name: {{ .Release.Name }}-recommendation-service
                 port:
                   number: {{ .Values.recommendation.port }}
 
@@ -51,7 +51,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}-voting-stable
+                name: {{ .Release.Name }}-voting-service
                 port:
                   number: {{ .Values.voting.port }}
 {{- end }}
