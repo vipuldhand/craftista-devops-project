@@ -1,4 +1,4 @@
-{{- if not .Values.rollout.enabled }}
+{{- if false }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
@@ -34,5 +34,5 @@ spec:
         - setWeight: 50
         - pause: { duration: 20s }
         - setWeight: 100
-        
+
 {{- end }}

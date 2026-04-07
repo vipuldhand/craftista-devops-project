@@ -1,4 +1,4 @@
-{{- if .Values.recommendation.rollout.enabled }}
+{{- if false }}
 
 apiVersion: v1
 kind: Service

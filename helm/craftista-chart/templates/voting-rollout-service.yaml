@@ -1,4 +1,4 @@
-{{- if .Values.voting.rollout.enabled }}
+{{- if false }}
 
 apiVersion: v1
 kind: Service

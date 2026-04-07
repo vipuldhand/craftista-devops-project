@@ -1,4 +1,7 @@
-{{- if not .Values.frontend.rollout.enabled }}
+{{- $frontend := .Values.frontend | default dict }}
+{{- $rollout := $frontend.rollout | default dict }}
+
+{{- if not ($rollout.enabled | default false) }}
 
 apiVersion: v1
 kind: Service

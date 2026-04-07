@@ -1,4 +1,4 @@
-{{- if not .Values.voting.rollout.enabled }}
+{{- if false }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout

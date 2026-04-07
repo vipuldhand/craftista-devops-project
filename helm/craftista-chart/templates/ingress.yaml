@@ -16,12 +16,17 @@ spec:
             pathType: Prefix
             backend:
               service:
-                {{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "canary") }}
+                {{- $frontend := .Values.frontend | default dict }}
+                {{- $rollout := $frontend.rollout | default dict }}
+
+                {{- if and ($rollout.enabled | default false) (eq ($rollout.mode | default "") "canary") }}
                 name: {{ .Release.Name }}-frontend-stable
                 port:
                   number: {{ .Values.frontend.port }}
-                {{- else if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "bluegreen") }}
+
+                {{- else if and ($rollout.enabled | default false) (eq ($rollout.mode | default "") "bluegreen") }}
                 name: {{ .Release.Name }}-frontend-active
+
                 {{- else }}
                 name: {{ .Release.Name }}-frontend-service
                 port:

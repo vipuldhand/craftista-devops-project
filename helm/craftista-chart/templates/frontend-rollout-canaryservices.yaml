@@ -1,4 +1,5 @@
-{{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "canary") }}
+{{- $rollout := (.Values.frontend.rollout | default dict) }}
+{{- if and ($rollout.enabled | default false) (eq ($rollout.mode | default "") "canary") }}
 
 #Stable Service
 apiVersion: v1
