@@ -9,9 +9,9 @@ frontend:
     productsApiBaseUri: "http://craftista-catalogue-service:5000"
     recommendationBaseUri: "http://craftista-recommendation-service:8080"
     votingBaseUri: "http://craftista-voting-service:8080"
-    rollout:
-      enabled: false
-      mode: canary   # canary | bluegreen | standard
+  rollout:
+    enabled: true
+    mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
   image: vipuldhand/frontend:f097332741573f6cfe6b49ed4273f4681bcdb0d2
