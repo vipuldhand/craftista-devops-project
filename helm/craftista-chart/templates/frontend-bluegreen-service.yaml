@@ -1,3 +1,5 @@
+{{- if eq .Values.rollout.mode "bluegreen" }}
+  
 apiVersion: v1
 kind: Service
 metadata:
@@ -22,3 +24,5 @@ spec:
     - protocol: TCP
       port: {{ .Values.frontend.port }}
       targetPort: {{ .Values.frontend.port }}
+
+{{- end }}

@@ -1,5 +1,6 @@
-{{- if .Values.rollout.createServices }}
+{{- if eq .Values.rollout.mode "canary" }}
 
+#Stable Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -17,6 +18,8 @@ spec:
     - port: {{ .Values.frontend.port }}
       targetPort: {{ .Values.frontend.port }}
 ---
+
+#Canary Service
 apiVersion: v1
 kind: Service
 metadata:

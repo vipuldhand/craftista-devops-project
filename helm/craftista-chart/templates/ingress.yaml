@@ -16,9 +16,17 @@ spec:
             pathType: Prefix
             backend:
               service:
+                {{- if eq .Values.rollout.mode "canary" }}
                 name: {{ .Release.Name }}-frontend-stable
                 port:
                   number: {{ .Values.frontend.port }}
+                {{- else if eq .Values.rollout.mode "bluegreen" }}
+                name: {{ .Release.Name }}-frontend-active
+                {{- else }}
+                name: {{ .Release.Name }}-frontend-service
+                port:
+                  number: {{ .Values.frontend.port }}
+                {{- end }}
 
           # # Catalogue Service
           # - path: /api/catalogue

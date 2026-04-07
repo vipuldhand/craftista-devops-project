@@ -1,0 +1,313 @@
+---
+# Source: craftista-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: craftista-frontend-config
+data:
+  config.json: |
+    {
+      "version": "1.0.0",
+      "productsApiBaseUri": "http://craftista-catalogue-service:5000",
+      "recommendationBaseUri": "http://craftista-recommendation-service:8080",
+      "votingBaseUri": "http://craftista-voting-service:8080"
+    }
+---
+# Source: craftista-chart/templates/catalogue-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: craftista-catalogue-service
+spec:
+  type: ClusterIP
+  selector:
+    app: craftista-catalogue
+  ports:
+    - port: 5000
+      targetPort: 5000
+---
+# Source: craftista-chart/templates/frontend-rollout-canaryservices.yaml
+#Stable Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: craftista-frontend-stable
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: craftista
+    meta.helm.sh/release-namespace: default
+spec:
+  type: 
+  selector:
+    app: craftista-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+# Source: craftista-chart/templates/frontend-rollout-canaryservices.yaml
+#Canary Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: craftista-frontend-canary
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: craftista
+    meta.helm.sh/release-namespace: default
+spec:
+  type: 
+  selector:
+    app: craftista-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+# Source: craftista-chart/templates/recommendation-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: craftista-recommendation-service
+spec:
+  type: ClusterIP 
+  selector:
+    app: craftista-recommendation
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+# Source: craftista-chart/templates/voting-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: craftista-voting-service
+spec:
+  type: ClusterIP
+  selector:
+    app: craftista-voting
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+# Source: craftista-chart/templates/catalogue-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: craftista-catalogue
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: craftista-catalogue
+
+  template:
+    metadata:
+      labels:
+        app: craftista-catalogue
+
+    spec:
+      containers:
+        - name: catalogue
+          image: vipuldhand/frontend:96628f7be04d5a266d654a283c5b85ac8fe6fa05
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 5000
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+---
+# Source: craftista-chart/templates/recommendation-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: craftista-recommendation
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: craftista-recommendation
+
+  template:
+    metadata:
+      labels:
+        app: craftista-recommendation
+
+    spec:
+      containers:
+        - name: recommendation
+          image: vipuldhand/frontend:96628f7be04d5a266d654a283c5b85ac8fe6fa05
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8080
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+---
+# Source: craftista-chart/templates/voting-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: craftista-voting
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: craftista-voting
+
+  template:
+    metadata:
+      labels:
+        app: craftista-voting
+
+    spec:
+      containers:
+        - name: voting
+          image: vipuldhand/frontend:96628f7be04d5a266d654a283c5b85ac8fe6fa05
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8080
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+---
+# Source: craftista-chart/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: craftista-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: craftista.local
+      http:
+        paths:
+          # Frontend
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: craftista-frontend-stable
+                port:
+                  number: 3000
+
+          # # Catalogue Service
+          # - path: /api/catalogue
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: craftista-catalogue-stable
+          #       port:
+          #         number: 5000
+
+          # # Recommendation Service
+          # - path: /api/recommend
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: craftista-recommendation-stable
+          #       port:
+          #         number: 8080
+
+          # # Voting Service
+          # - path: /api/vote
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: craftista-voting-stable
+          #       port:
+          #         number: 8080
+---
+# Source: craftista-chart/templates/analysis-template.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate-check
+spec:
+  metrics:
+    - name: success-rate
+      interval: 30s
+      successCondition: result[0] < 1
+      failureLimit: 2
+      provider:
+        prometheus:
+          address: http://kube-prometheus-kube-prometheus:9090
+          query: |
+            sum(rate(container_cpu_usage_seconds_total{namespace="default"}[1m]))
+---
+# Source: craftista-chart/templates/frontend-deployment.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: craftista-frontend
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: craftista-frontend
+
+  template:
+    metadata:
+      labels:
+        app: craftista-frontend
+
+    spec:
+      containers:
+        - name: frontend
+          image: vipuldhand/frontend:96628f7be04d5a266d654a283c5b85ac8fe6fa05
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 3000
+
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+          volumeMounts:
+            - name: frontend-config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+      volumes:
+        - name: frontend-config-volume
+          configMap:
+            name: craftista-frontend-config
+  strategy:
+          canary:
+            stableService: craftista-frontend-stable
+            canaryService: craftista-frontend-canary
+            steps:
+              - setWeight: 20
+              - pause: { duration: 20s }
+              - setWeight: 50
+              - pause: { duration: 20s }
+              - setWeight: 100
+            analysis:
+              templates:
+                - templateName: success-rate-check
