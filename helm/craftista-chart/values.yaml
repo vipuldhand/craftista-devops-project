@@ -14,19 +14,19 @@ frontend:
       mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
-  image: vipuldhand/frontend:b7e37d4fb20cf11aa5393370a5140758f599b295
+  image: vipuldhand/catalogue:latest
   port: 5000
   rollout:
     enabled: false
 recommendation:
   replicas: 1
-  image: vipuldhand/frontend:b7e37d4fb20cf11aa5393370a5140758f599b295
+  image: vipuldhand/recommendation:latest
   port: 8080
   rollout:
     enabled: false
 voting:
   replicas: 1
-  image: vipuldhand/frontend:b7e37d4fb20cf11aa5393370a5140758f599b295
+  image: vipuldhand/voting:latest
   port: 8080
   rollout:
     enabled: false
