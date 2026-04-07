@@ -2,7 +2,7 @@ frontend:
   service:
     type: ClusterIP
   replicas: 1
-  image: vipuldhand/frontend:c7bc7b7be94b4566cd2be2a7d0585956004dcddd
+  image: vipuldhand/frontend:1a08111e0b1841bae69c23fdf4710b3abfe9815f
   port: 3000
   config:
     version: "1.0.0"
@@ -11,15 +11,15 @@ frontend:
     votingBaseUri: "http://craftista-voting-service:8080"
 catalogue:
   replicas: 1
-  image: vipuldhand/frontend:c7bc7b7be94b4566cd2be2a7d0585956004dcddd
+  image: vipuldhand/frontend:1a08111e0b1841bae69c23fdf4710b3abfe9815f
   port: 5000
 recommendation:
   replicas: 1
-  image: vipuldhand/frontend:c7bc7b7be94b4566cd2be2a7d0585956004dcddd
+  image: vipuldhand/frontend:1a08111e0b1841bae69c23fdf4710b3abfe9815f
   port: 8080
 voting:
   replicas: 1
-  image: vipuldhand/frontend:c7bc7b7be94b4566cd2be2a7d0585956004dcddd
+  image: vipuldhand/frontend:1a08111e0b1841bae69c23fdf4710b3abfe9815f
   port: 8080
 ingress:
   enabled: true
