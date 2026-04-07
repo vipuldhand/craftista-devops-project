@@ -23,6 +23,10 @@ spec:
           ports:
             - containerPort: {{ .Values.recommendation.port }}
 
+          env:
+            - name: PRODUCTS_API_BASE_URI
+              value: "http://craftista-catalogue-service:5000"
+
           resources:
             limits:
               memory: "256Mi"
