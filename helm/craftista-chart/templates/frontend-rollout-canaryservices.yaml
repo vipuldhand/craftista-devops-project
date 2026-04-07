@@ -1,4 +1,4 @@
-{{- if eq .Values.rollout.mode "canary" }}
+{{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "canary") }}
 
 #Stable Service
 apiVersion: v1

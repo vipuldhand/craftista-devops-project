@@ -39,7 +39,7 @@ spec:
           configMap:
             name: {{ .Release.Name }}-frontend-config
   strategy:
-          {{- if eq .Values.rollout.mode "canary" }}
+          {{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "canary") }}
           canary:
             stableService: {{ .Release.Name }}-frontend-stable
             canaryService: {{ .Release.Name }}-frontend-canary
@@ -54,7 +54,7 @@ spec:
                 - templateName: success-rate-check
           {{- end }}
 
-          {{- if eq .Values.rollout.mode "bluegreen" }}
+          {{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "bluegreen") }}
           bluegreen:
             activeService: {{ .Release.Name }}-frontend-active
             previewService: {{ .Release.Name }}-frontend-preview

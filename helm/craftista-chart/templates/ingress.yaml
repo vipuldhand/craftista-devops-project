@@ -16,11 +16,11 @@ spec:
             pathType: Prefix
             backend:
               service:
-                {{- if eq .Values.rollout.mode "canary" }}
+                {{- if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "canary") }}
                 name: {{ .Release.Name }}-frontend-stable
                 port:
                   number: {{ .Values.frontend.port }}
-                {{- else if eq .Values.rollout.mode "bluegreen" }}
+                {{- else if and .Values.frontend.rollout.enabled (eq .Values.frontend.rollout.mode "bluegreen") }}
                 name: {{ .Release.Name }}-frontend-active
                 {{- else }}
                 name: {{ .Release.Name }}-frontend-service

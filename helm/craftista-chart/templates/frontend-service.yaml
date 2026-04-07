@@ -1,4 +1,4 @@
-{{- if eq .Values.rollout.mode "none" }}
+{{- if not .Values.frontend.rollout.enabled }}
 
 apiVersion: v1
 kind: Service

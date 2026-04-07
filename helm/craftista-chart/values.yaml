@@ -9,20 +9,26 @@ frontend:
     productsApiBaseUri: "http://craftista-catalogue-service:5000"
     recommendationBaseUri: "http://craftista-recommendation-service:8080"
     votingBaseUri: "http://craftista-voting-service:8080"
+    rollout:
+      mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
   image: vipuldhand/frontend:399280d407bc4a5a24183011dfb22e8f9eab059c
   port: 5000
+  rollout:
+    enabled: false
 recommendation:
   replicas: 1
   image: vipuldhand/frontend:399280d407bc4a5a24183011dfb22e8f9eab059c
   port: 8080
+  rollout:
+    enabled: false
 voting:
   replicas: 1
   image: vipuldhand/frontend:399280d407bc4a5a24183011dfb22e8f9eab059c
   port: 8080
+  rollout:
+    enabled: false
 ingress:
   enabled: true
   host: craftista.local
-rollout:
-  mode: canary   # canary | bluegreen | standard
