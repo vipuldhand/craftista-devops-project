@@ -118,10 +118,27 @@ The system consists of multiple microservices built using different technologies
 
 ###  Deployment Strategies
 
-* Blue-Green deployment using Argo Rollouts
-* Canary deployment with traffic splitting
-* GitOps-based deployment using ArgoCD
+This project supports multiple deployment strategies using a unified Helm configuration:
 
+- **Canary Deployment (default)**
+  - Gradual traffic shifting (20% → 50% → 100%)
+  - Automated analysis using Argo Rollouts
+
+- **Blue-Green Deployment**
+  - Instant traffic switch between versions
+  - Preview environment before promotion
+
+- **Standard Deployment**
+  - Single stable service without rollout strategy
+
+### ⚙️ Configuration
+
+Controlled via:
+
+```yaml
+rollout:
+  mode: canary  # canary | bluegreen | none
+```
 ###  Observability (Major Highlight)
 
 * Metrics collection using Prometheus
