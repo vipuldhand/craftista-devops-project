@@ -2,7 +2,7 @@ frontend:
   service:
     type: ClusterIP
   replicas: 1
-  image: vipuldhand/frontend:2adf22b13d1754535b1671d68d4e0e446a67042a
+  image: vipuldhand/frontend:98f3eb6c04b3cc38673ecdf0bb31c6bace74d020
   port: 3000
   config:
     version: "1.0.0"
@@ -13,19 +13,19 @@ frontend:
       mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
-  image: vipuldhand/frontend:2adf22b13d1754535b1671d68d4e0e446a67042a
+  image: vipuldhand/frontend:98f3eb6c04b3cc38673ecdf0bb31c6bace74d020
   port: 5000
   rollout:
     enabled: false
 recommendation:
   replicas: 1
-  image: vipuldhand/frontend:2adf22b13d1754535b1671d68d4e0e446a67042a
+  image: vipuldhand/frontend:98f3eb6c04b3cc38673ecdf0bb31c6bace74d020
   port: 8080
   rollout:
     enabled: false
 voting:
   replicas: 1
-  image: vipuldhand/frontend:2adf22b13d1754535b1671d68d4e0e446a67042a
+  image: vipuldhand/frontend:98f3eb6c04b3cc38673ecdf0bb31c6bace74d020
   port: 8080
   rollout:
     enabled: false
