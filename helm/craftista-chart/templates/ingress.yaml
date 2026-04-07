@@ -28,30 +28,30 @@ spec:
                   number: {{ .Values.frontend.port }}
                 {{- end }}
 
-          # # Catalogue Service
-          # - path: /api/catalogue
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: {{ .Release.Name }}-catalogue-stable
-          #       port:
-          #         number: {{ .Values.catalogue.port }}
+          # Catalogue Service
+          - path: /api/catalogue
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-catalogue-stable
+                port:
+                  number: {{ .Values.catalogue.port }}
 
-          # # Recommendation Service
-          # - path: /api/recommend
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: {{ .Release.Name }}-recommendation-stable
-          #       port:
-          #         number: {{ .Values.recommendation.port }}
+          # Recommendation Service
+          - path: /api/recommend
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-recommendation-stable
+                port:
+                  number: {{ .Values.recommendation.port }}
 
-          # # Voting Service
-          # - path: /api/vote
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: {{ .Release.Name }}-voting-stable
-          #       port:
-          #         number: {{ .Values.voting.port }}
+          # Voting Service
+          - path: /api/vote
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-voting-stable
+                port:
+                  number: {{ .Values.voting.port }}
 {{- end }}
