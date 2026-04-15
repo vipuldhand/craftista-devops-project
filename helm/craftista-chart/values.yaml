@@ -7,7 +7,7 @@ frontend:
   config:
     version: "1.0.0"
     productsApiBaseUri: "http://craftista-catalogue-service:5000/api/products"
-    recommendationBaseUri: "http://craftista-recommendation-service:8080/api/origami-of-the-day"
+    recommendationBaseUri: "http://craftista-recommendation-service:8080/api/recommendation-status"
     votingBaseUri: "http://craftista-voting-service:8080/api/origamis"
   rollout:
     enabled: true
