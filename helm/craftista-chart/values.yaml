@@ -10,7 +10,7 @@ frontend:
     recommendationBaseUri: "http://craftista-recommendation-service:8080"
     votingBaseUri: "http://craftista-voting-service:8080"
   rollout:
-    enabled: true
+    enabled: false
     mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
