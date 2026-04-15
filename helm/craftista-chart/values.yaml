@@ -6,9 +6,9 @@ frontend:
   port: 3000
   config:
     version: "1.0.0"
-    productsApiBaseUri: "http://craftista-catalogue-service:5000"
-    recommendationBaseUri: "http://craftista-recommendation-service:8080"
-    votingBaseUri: "http://craftista-voting-service:8080"
+    productsApiBaseUri: "http://craftista-catalogue-service:5000/api/products"
+    recommendationBaseUri: "http://craftista-recommendation-service:8080/api/origami-of-the-day"
+    votingBaseUri: "http://craftista-voting-service:8080/api/origamis"
   rollout:
     enabled: true
     mode: canary   # canary | bluegreen | standard
