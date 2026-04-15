@@ -2,16 +2,16 @@ frontend:
   service:
     type: ClusterIP
   replicas: 1
-  image: vipuldhand/frontend:b7e37d4fb20cf11aa5393370a5140758f599b295
+  image: vipuldhand/frontend:ac80d8cca58ed7dacd1ad37a0239f085c3695db1
   port: 3000
   config:
     version: "1.0.0"
     productsApiBaseUri: "http://craftista-catalogue-service:5000"
     recommendationBaseUri: "http://craftista-recommendation-service:8080"
     votingBaseUri: "http://craftista-voting-service:8080"
-    rollout:
-      enabled: true
-      mode: canary   # canary | bluegreen | standard
+  rollout:
+    enabled: true
+    mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
   image: vipuldhand/catalogue:latest
