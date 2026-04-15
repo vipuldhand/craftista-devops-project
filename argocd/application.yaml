@@ -11,6 +11,10 @@ spec:
     targetRevision: main
     path: helm/craftista-chart
 
+    helm:
+      valueFiles:
+        - values.yaml
+
   destination:
     server: https://kubernetes.default.svc
     namespace: default
