@@ -1,0 +1,25 @@
+# Ignore config (we inject via ConfigMap)
+config.json
+
+# Node stuff
+node_modules
+npm-debug.log
+
+# Git
+.git
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.vscode
+.idea
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Logs
+*.log
