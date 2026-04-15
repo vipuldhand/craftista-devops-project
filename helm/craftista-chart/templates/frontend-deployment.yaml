@@ -32,7 +32,8 @@ spec:
               cpu: "100m"
           volumeMounts:
             - name: frontend-config-volume
-              mountPath: /app
+              mountPath: /app/config.json
+              subPath: config.json
       volumes:
         - name: frontend-config-volume
           configMap:
