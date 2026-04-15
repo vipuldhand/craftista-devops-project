@@ -6,28 +6,28 @@ frontend:
   port: 3000
   config:
     version: "1.0.0"
-    productsApiBaseUri: "http://craftista-catalogue-service:3000"
-    recommendationBaseUri: "http://craftista-recommendation-service:3000"
-    votingBaseUri: "http://craftista-voting-service:3000"
+    productsApiBaseUri: "http://craftista-catalogue-service:5000"
+    recommendationBaseUri: "http://craftista-recommendation-service:8080"
+    votingBaseUri: "http://craftista-voting-service:8080"
   rollout:
     enabled: true
     mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
   image: vipuldhand/catalogue:latest
-  port: 3000
+  port: 5000
   rollout:
     enabled: false
 recommendation:
   replicas: 1
   image: vipuldhand/recommendation:latest
-  port: 3000
+  port: 8080
   rollout:
     enabled: false
 voting:
   replicas: 1
   image: vipuldhand/voting:latest
-  port: 3000
+  port: 8080
   rollout:
     enabled: false
 ingress:
