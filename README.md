@@ -248,6 +248,8 @@ craftista/
 ## Credits
 
 This project is based on the Craftista application originally created by School of DevOps.
+https://schoolofdevops.com/
+https://github.com/craftista/craftista
 
 ---
 
