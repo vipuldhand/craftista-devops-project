@@ -14,5 +14,8 @@ spec:
   ports:
     - port: {{ .Values.frontend.port }}
       targetPort: {{ .Values.frontend.port }}
+      {{- if eq .Values.frontend.serviceType "NodePort" }}
+      nodePort: {{ .Values.frontend.nodePort }}
+      {{- end }}
 
 {{- end }}

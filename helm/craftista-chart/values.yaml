@@ -1,6 +1,6 @@
 frontend:
-  service:
-    type: ClusterIP
+  serviceType: ClusterIP
+  nodePort: 30007
   replicas: 1
   image: vipuldhand/frontend:954ac67681cd4cd8e4aa0d3bb51b815cb40de3ad
   port: 3000
