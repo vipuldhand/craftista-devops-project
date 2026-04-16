@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-frontend-config
+data:
+  config.json: |
+    {
+      "version": "{{ .Values.frontend.config.version }}",
+      "productsApiBaseUri": "{{ .Values.frontend.config.productsApiBaseUri }}",
+      "recommendationBaseUri": "{{ .Values.frontend.config.recommendationBaseUri }}",
+      "votingBaseUri": "{{ .Values.frontend.config.votingBaseUri }}"
+    }
