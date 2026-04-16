@@ -44,6 +44,12 @@ The system consists of multiple microservices built using different technologies
 ```
 
 ---
+## Screenshots
+<img width="2499" height="1306" alt="Screenshot 2026-04-16 163126" src="https://github.com/user-attachments/assets/812f4ba5-a895-4b29-beb1-9a4afe833923" />
+<img width="2490" height="1303" alt="Screenshot 2026-04-16 151420" src="https://github.com/user-attachments/assets/42404ec0-6a78-4fb3-80a5-ae20be5b299d" />
+<img width="2488" height="1330" alt="Screenshot 2026-04-16 151359" src="https://github.com/user-attachments/assets/627a99a4-6503-4e3e-a827-64ad637ac1ac" />
+
+
 
 ## Tech Stack
 
