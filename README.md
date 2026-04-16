@@ -31,8 +31,8 @@ The system consists of multiple microservices built using different technologies
         ┌────────────────────────────┼────────────────────────────┐
         │                            │                            │
 ┌───────▼────────┐        ┌──────────▼─────────┐        ┌────────▼────────┐
-│   Frontend     │        │   Catalogue Service │       │ Recommendation  │
-│   (Node.js)    │        │   (Flask/Python)    │       │ Service (Go)    │
+│   Frontend     │        │  Catalogue Service │        │ Recommendation  │
+│   (Node.js)    │        │   (Flask/Python)   │        │ Service (Go)    │
 └───────┬────────┘        └──────────┬─────────┘        └────────┬────────┘
         │                            │                            │
         │                    ┌───────▼────────┐                   │
@@ -224,7 +224,7 @@ craftista/
 ├── catalogue/
 ├── recommendation/
 ├── voting/
-├── craftista-infra/        # Terraform (NEW)
+├── craftista-infra/       
 ├── helm/
 │   └── craftista-chart/
 ├── k8s/
