@@ -2,15 +2,15 @@ frontend:
   service:
     type: ClusterIP
   replicas: 1
-  image: vipuldhand/frontend:fixed-v2
+  image: vipuldhand/frontend:latest
   port: 3000
   config:
     version: "1.0.0"
-    productsApiBaseUri: "http://craftista-catalogue-service:5000/api/products"
-    recommendationBaseUri: "http://craftista-recommendation-service:8080/api/origami-of-the-day"
-    votingBaseUri: "http://craftista-voting-service:8080/api/origamis"
+    productsApiBaseUri: "http://craftista-catalogue-service:5000"
+    recommendationBaseUri: "http://craftista-recommendation-service:8080"
+    votingBaseUri: "http://craftista-voting-service:8080"
   rollout:
-    enabled: true
+    enabled: false
     mode: canary   # canary | bluegreen | standard
 catalogue:
   replicas: 1
